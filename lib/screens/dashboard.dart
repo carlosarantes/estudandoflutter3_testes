@@ -16,20 +16,19 @@ class Dashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Image.asset('images/bytebank_logo.png'),
-            ),  
-
+            ),
             Container(
               height: 120,
               child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                          _FeatureItem(
+                          FeatureItem(
                                         'Transfer', 
                                         Icons.monetization_on,
                                         onClick : (){
                                           _showContactsList(context);
                                         }, ),
-                          _FeatureItem(
+                          FeatureItem(
                                         'Transaction Feed', 
                                         Icons.description, 
                                         onClick : (){
@@ -58,14 +57,14 @@ class Dashboard extends StatelessWidget {
   }
 }
 
-class _FeatureItem extends StatelessWidget {
+class FeatureItem extends StatelessWidget {
     
   final String name;
   final IconData icon;
   final Function onClick;
 
 
-  _FeatureItem(this.name, this.icon, { @required this.onClick});
+  FeatureItem(this.name, this.icon, { @required this.onClick});
 
   @override
   Widget build(BuildContext context) {
