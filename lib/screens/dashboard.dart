@@ -1,8 +1,13 @@
+import 'package:estudando_flutter2/dao/contact_dao.dart';
 import 'package:estudando_flutter2/screens/contacts_list.dart';
 import 'package:estudando_flutter2/screens/transactions_list.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {
+
+  final ContactDao contactDao;
+
+  Dashboard({@required this.contactDao});
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +71,7 @@ class Dashboard extends StatelessWidget {
 
   void _showContactsList(BuildContext context) {
     Navigator.of(context).push( MaterialPageRoute(
-      builder: (context) => ContactsList() 
+      builder: (context) => ContactsList( contactDao: ContactDao(), ) 
     ), );
   }
 

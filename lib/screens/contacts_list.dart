@@ -7,7 +7,13 @@ import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
 
-final ContactDao _dao = ContactDao();
+
+  // final ContactDao _dao = ContactDao();
+
+  final ContactDao contactDao;
+
+  ContactsList({@required this.contactDao});
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ final ContactDao _dao = ContactDao();
         FutureBuilder<List<Contact>>(
           // future: findAll(),
           initialData: List(),
-          future: _dao.findAll(),
+          future: contactDao.findAll(),
           builder: (context, snapshot){
 
               switch(snapshot.connectionState){
@@ -54,7 +60,7 @@ final ContactDao _dao = ContactDao();
          onPressed: (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ContactForm(),
+                builder: (context) => ContactForm(contactDao: contactDao,),
               ),
             );
          },
