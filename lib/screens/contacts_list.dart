@@ -5,16 +5,22 @@ import 'package:estudando_flutter2/screens/contact_form.dart';
 import 'package:estudando_flutter2/screens/transaction_form.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
-
-
-  // final ContactDao _dao = ContactDao();
+class ContactsList extends StatefulWidget {
 
   final ContactDao contactDao;
 
   ContactsList({@required this.contactDao});
 
+  @override
+  State<StatefulWidget> createState() {
+    return _ContactsListState();
+  }
+}
 
+
+
+class _ContactsListState extends State<ContactsList> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +29,7 @@ class ContactsList extends StatelessWidget {
         FutureBuilder<List<Contact>>(
           // future: findAll(),
           initialData: List(),
-          future: contactDao.findAll(),
+          future: widget.contactDao.findAll(),
           builder: (context, snapshot){
 
               switch(snapshot.connectionState){
@@ -60,7 +66,7 @@ class ContactsList extends StatelessWidget {
          onPressed: (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ContactForm(contactDao: contactDao,),
+                builder: (context) => ContactForm(contactDao: widget.contactDao,),
               ),
             );
          },
@@ -70,7 +76,14 @@ class ContactsList extends StatelessWidget {
       ),
     );
   }
+  
 }
+
+
+
+
+
+
 
 
 class _ContactItem extends StatelessWidget{
