@@ -1,7 +1,8 @@
+import 'package:estudando_flutter2/components/response_dialog.dart';
 import 'package:estudando_flutter2/components/transaction_auth_dialog.dart';
-import 'package:estudando_flutter2/dao/contact_dao.dart';
 import 'package:estudando_flutter2/main.dart';
 import 'package:estudando_flutter2/models/contact.dart';
+import 'package:estudando_flutter2/models/transaction.dart';
 import 'package:estudando_flutter2/screens/contacts_list.dart';
 import 'package:estudando_flutter2/screens/dashboard.dart';
 import 'package:estudando_flutter2/screens/transaction_form.dart';
@@ -25,12 +26,10 @@ void main() {
       expect(dashboard, findsOneWidget);
 
 
-
+      final doido = Contact(0, 'Doido', 12345);
       when(mockContactDao.findAll()).thenAnswer((invocation) async {
-          return [Contact(0, 'Doido', 12345)];
+          return [doido];
       });
-
-
 
       await clickOnTheTransferFeatureItem(tester);
 
@@ -77,6 +76,33 @@ void main() {
       final transactionAuthDialog = find.byType(TransactionAuthDialog);
       expect(transactionAuthDialog, findsOneWidget);
 
+      final textFieldPassword = find.byKey(transactionAuthDialogTextFieldPasswordKey);
+      expect(textFieldPassword, findsOneWidget);
+      await tester.enterText(textFieldPassword, '1000');
+
+
+      final cancelButton = find.widgetWithText(FlatButton, 'Cancel');
+      expect(cancelButton, findsOneWidget);
+
+      final confirmButton = find.widgetWithText(FlatButton, 'Confirm');
+      expect(confirmButton, findsOneWidget);
+
+      when(  mockTransactionWebClient.save(Transaction(null, 200, doido), '1234'))
+        .thenAnswer(  (_) async => Transaction(null, 200, doido) );
+ 
+      await tester.tap(confirmButton);
+      await tester.pumpAndSettle();
+
+      final successDialog = find.byType(SuccessDialog);
+      expect(successDialog, findsOneWidget);
+
+      final obButton = find.widgetWithText(FlatButton, 'Ok');
+      expect(obButton, findsOneWidget);
+      await tester.tap(obButton);
+      await tester.pumpAndSettle();
+
+      final contactsListBack = find.byType(ContactsList);
+      expect(contactsListBack, findsOneWidget);
   });
 }
 
