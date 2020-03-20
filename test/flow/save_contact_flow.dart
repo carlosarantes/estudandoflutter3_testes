@@ -14,7 +14,9 @@ void main() {
 
   testWidgets('Shouldsave contact', (tester) async {
       final mockContactDao = MockContactDao();
-      await tester.pumpWidget(ByteBankApp( contactDao: mockContactDao, ));
+      final mockTransactionWebClient = MockTransactionWebClient();
+
+      await tester.pumpWidget(ByteBankApp( transactionWebClient: mockTransactionWebClient, contactDao: mockContactDao, ));
 
       final dashboard = find.byType(Dashboard);
       expect(dashboard, findsOneWidget);
