@@ -1,15 +1,11 @@
 import 'package:estudando_flutter2/components/progress.dart';
-import 'package:estudando_flutter2/dao/contact_dao.dart';
 import 'package:estudando_flutter2/models/contact.dart';
 import 'package:estudando_flutter2/screens/contact_form.dart';
 import 'package:estudando_flutter2/screens/transaction_form.dart';
+import 'package:estudando_flutter2/widgets/app_dependencies.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatefulWidget {
-
-  final ContactDao contactDao;
-
-  ContactsList({@required this.contactDao});
 
   @override
   State<StatefulWidget> createState() {
@@ -20,16 +16,18 @@ class ContactsList extends StatefulWidget {
 
 
 class _ContactsListState extends State<ContactsList> {
-  
+
   @override
   Widget build(BuildContext context) {
+
+    final dependencies = AppDependencies.of(context);
     return Scaffold(
       appBar: AppBar( title: Text('Transfer'), ) ,
       body: 
         FutureBuilder<List<Contact>>(
           // future: findAll(),
           initialData: List(),
-          future: widget.contactDao.findAll(),
+          future: dependencies.contactDao.findAll(),
           builder: (context, snapshot){
 
               switch(snapshot.connectionState){
@@ -66,7 +64,7 @@ class _ContactsListState extends State<ContactsList> {
          onPressed: (){
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ContactForm(contactDao: widget.contactDao,),
+                builder: (context) => ContactForm(),
               ),
             );
          },

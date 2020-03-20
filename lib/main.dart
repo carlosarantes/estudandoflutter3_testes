@@ -1,5 +1,6 @@
 import 'package:estudando_flutter2/dao/contact_dao.dart';
 import 'package:estudando_flutter2/screens/dashboard.dart';
+import 'package:estudando_flutter2/widgets/app_dependencies.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,16 +17,19 @@ class ByteBankApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-                primaryColor: Colors.green[900],
-                accentColor: Colors.blueAccent[700], 
-                buttonTheme: ButtonThemeData(
-                    buttonColor: Colors.blueAccent[700],
-                    textTheme: ButtonTextTheme.primary,
-                ),
-      ),
-      home: Dashboard(contactDao: ContactDao(),) /*Dashboard()*/,
+    return AppDependencies(
+              contactDao: contactDao,
+              child: MaterialApp(
+                      theme: ThemeData(
+                                primaryColor: Colors.green[900],
+                                accentColor: Colors.blueAccent[700], 
+                                buttonTheme: ButtonThemeData(
+                                    buttonColor: Colors.blueAccent[700],
+                                    textTheme: ButtonTextTheme.primary,
+                                ),
+                      ),
+                      home: Dashboard() /*Dashboard()*/,
+                    ),
     );
   }
 }
