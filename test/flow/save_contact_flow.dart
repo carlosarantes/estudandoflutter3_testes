@@ -6,8 +6,9 @@ import 'package:estudando_flutter2/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'matchers.dart';
-import 'mocks.dart';
+import '../matchers/matchers.dart';
+import '../mocks/mocks.dart';
+import 'actions.dart';
 
 void main() {
 
@@ -17,17 +18,15 @@ void main() {
 
       final dashboard = find.byType(Dashboard);
       expect(dashboard, findsOneWidget);
+      
+      await clickOnTheTransferFeatureItem(tester);
 
-      final transferFeatureItem = find.byWidgetPredicate( (widget) => featureItemMatcher(widget, 'Transfer', Icons.monetization_on) );
-      expect(transferFeatureItem, findsOneWidget);
-
-      await tester.tap(transferFeatureItem);
       await tester.pumpAndSettle();
 
       final contactsList = find.byType(ContactsList);
       expect(contactsList, findsOneWidget);
 
-      verify(mockContactDao.findAll()).called(0) ;
+      verify(mockContactDao.findAll()).called(1);
 
 
 

@@ -3,7 +3,7 @@ import 'package:estudando_flutter2/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'matchers.dart';
+import '../matchers/matchers.dart';
 
 void main() {
   
