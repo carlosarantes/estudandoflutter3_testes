@@ -41,14 +41,14 @@ void main() {
 
 
       final nameTextField = find.byWidgetPredicate( (widget) {
-        return textFieldMatcher(widget, 'Full name');
+        return textFieldByLabelTextMatcher(widget, 'Full name');
       });
       expect(nameTextField, findsOneWidget);
       await tester.enterText(nameTextField, 'Doido');
 
 
       final accountNumberTextField = find.byWidgetPredicate( (widget) {
-        return textFieldMatcher(widget, 'Account Number');
+        return textFieldByLabelTextMatcher(widget, 'Account Number');
       });
       expect(accountNumberTextField, findsOneWidget);
       await tester.enterText(accountNumberTextField, '1234');
